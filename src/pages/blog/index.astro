@@ -1,0 +1,150 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getAllPosts } from '../../data/posts';
+
+const posts = getAllPosts();
+const allTags = [...new Set(posts.flatMap(p => p.tags))];
+---
+
+<Layout title="Blog" description="Technical articles, tutorials, and insights on AI, machine learning, and software engineering.">
+  <Navbar />
+
+  <main class="flex-1">
+    <section class="bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-20">
+      <div class="max-w-6xl mx-auto px-6">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 animate-fade-in" style="opacity: 0;">
+          Blog
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl animate-fade-in stagger-1" style="opacity: 0;">
+          Technical articles, tutorials, and insights on AI, machine learning, and software engineering.
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <a
+          href={`/blog/${posts[0].slug}`}
+          class="group block relative overflow-hidden rounded-3xl animate-scale-in" style="opacity: 0;"
+        >
+          <div class="aspect-[21/9] overflow-hidden rounded-3xl">
+            <img
+              src={posts[0].cover}
+              alt={posts[0].title}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-3xl">
+            <div class="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="px-3 py-1 bg-indigo-500 text-white text-sm font-medium rounded-full">
+                  Latest Post
+                </span>
+                {posts[0].tags.slice(0, 2).map(tag => (
+                  <span class="px-3 py-1 bg-white/20 text-white text-sm rounded-full backdrop-blur-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h2 class="text-2xl md:text-4xl font-bold text-white mb-4 group-hover:text-indigo-200 transition-colors">
+                {posts[0].title}
+              </h2>
+              <p class="text-gray-200 text-lg mb-4 max-w-2xl line-clamp-2">
+                {posts[0].excerpt}
+              </p>
+              <div class="flex items-center gap-4 text-gray-300 text-sm">
+                <span>{posts[0].date}</span>
+                <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+                <span>{posts[0].readingTime}</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="bg-gray-50 py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.slice(1).map((post, index) => (
+            <a
+              href={`/blog/${post.slug}`}
+              class={`group block bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl hover:border-indigo-200 transition-all duration-300 animate-fade-in stagger-${index + 2}`}
+              style="opacity: 0;"
+            >
+              <div class="aspect-[16/10] overflow-hidden">
+                <img
+                  src={post.cover}
+                  alt={post.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-xs text-gray-500">{post.date}</span>
+                  <span class="text-gray-300">·</span>
+                  <span class="text-xs text-gray-500">{post.readingTime}</span>
+                </div>
+                <h3 class="font-bold text-gray-900 text-lg mb-2 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                  {post.title}
+                </h3>
+                <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                  {post.excerpt}
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  {post.tags.slice(0, 3).map(tag => (
+                    <span class="px-2 py-1 bg-indigo-50 text-indigo-700 text-xs font-medium rounded-md">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-r from-indigo-600 to-purple-600 py-20">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+          Stay Updated
+        </h2>
+        <p class="text-xl text-indigo-100 mb-8">
+          Get notified when new articles are published. No spam, unsubscribe anytime.
+        </p>
+        <form class="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto" id="newsletter-form">
+          <input
+            type="email"
+            placeholder="your.email@example.com"
+            required
+            class="flex-1 px-6 py-4 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white"
+          />
+          <button
+            type="submit"
+            class="px-8 py-4 bg-white text-indigo-600 font-bold rounded-xl hover:bg-indigo-50 transition-colors shadow-lg hover:shadow-xl"
+          >
+            Subscribe
+          </button>
+        </form>
+        <p id="newsletter-success" class="hidden mt-4 text-indigo-100 font-medium">
+          Thanks for subscribing! You will receive updates soon.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script>
+    const form = document.getElementById('newsletter-form');
+    const success = document.getElementById('newsletter-success');
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.style.display = 'none';
+      if (success) success.classList.remove('hidden');
+    });
+  </script>
+</Layout>
