@@ -1,20 +1,21 @@
 ---
+const BASE = '/my-site';
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Home', href: BASE + '/' },
+  { name: 'About', href: BASE + '/about' },
+  { name: 'Projects', href: BASE + '/projects' },
+  { name: 'Blog', href: BASE + '/blog' },
+  { name: 'Contact', href: BASE + '/contact' },
 ];
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
 ---
 
 <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
   <div class="max-w-6xl mx-auto px-6">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 group">
+      <a href="/my-site/" class="flex items-center gap-2 group">
         <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all duration-200">
           AI
         </div>

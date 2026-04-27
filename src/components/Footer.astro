@@ -1,12 +1,13 @@
 ---
+const BASE = '/my-site';
 const currentYear = new Date().getFullYear();
 
 const footerLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Home', href: BASE + '/' },
+  { name: 'About', href: BASE + '/about' },
+  { name: 'Projects', href: BASE + '/projects' },
+  { name: 'Blog', href: BASE + '/blog' },
+  { name: 'Contact', href: BASE + '/contact' },
 ];
 
 const socialLinks = [
@@ -33,7 +34,7 @@ const socialLinks = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Brand -->
       <div>
-        <a href="/" class="flex items-center gap-2 mb-4">
+        <a href="/my-site/" class="flex items-center gap-2 mb-4">
           <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
             AI
           </div>

@@ -14,7 +14,7 @@ try {
   console.error('Failed to fetch repositories:', error);
 }
 
-const repos = allRepos.filter(r => !r.fork && !r.archived);
+const repos = allRepos.filter(r => !r.fork && !r.archived && r.name !== 'my-site');
 const totalStars = repos.reduce((sum, r) => sum + r.stargazers_count, 0);
 const totalForks = repos.reduce((sum, r) => sum + r.forks_count, 0);
 
@@ -129,7 +129,7 @@ const allTopics = [...new Set(repos.flatMap(r => r.topics))];
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
           {repos.map((repo, index) => (
             <a
-              href={`/projects/${repo.name}`}
+              href={`/my-site/projects/${repo.name}`}
               data-name={repo.name.toLowerCase()}
               data-language={repo.language?.toLowerCase() || ''}
               data-topics={repo.topics.join(',')}

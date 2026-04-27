@@ -17,9 +17,9 @@ try {
     getGitHubRepos(GITHUB_USERNAME),
   ]);
   featuredRepos = repos
-    .filter(r => !r.fork && !r.archived && (r.stargazers_count > 0 || r.topics.includes('featured')))
+    .filter(r => !r.fork && !r.archived && r.name !== 'my-site' && (r.stargazers_count > 0 || r.topics.includes('featured')))
     .slice(0, 6);
-  recentRepos = repos.filter(r => !r.fork && !r.archived).slice(0, 6);
+  recentRepos = repos.filter(r => !r.fork && !r.archived && r.name !== 'my-site').slice(0, 6);
 } catch (error) {
   console.error('Failed to fetch GitHub data:', error);
 }
@@ -100,7 +100,7 @@ const stats = [
             <!-- CTA Buttons -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <a
-                href="/projects"
+                href="/my-site/projects"
                 class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 shadow-lg shadow-indigo-200 hover:shadow-xl hover:shadow-indigo-300 transition-all duration-200 hover:-translate-y-0.5"
               >
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,7 +109,7 @@ const stats = [
                 View Projects
               </a>
               <a
-                href="/contact"
+                href="/my-site/contact"
                 class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-700 font-semibold rounded-xl border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-200 hover:-translate-y-0.5"
               >
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -178,7 +178,7 @@ const stats = [
             <p class="text-gray-600">Highlighting some of the best AI work.</p>
           </div>
           <a
-            href="/projects"
+            href="/my-site/projects"
             class="hidden md:inline-flex items-center gap-2 text-indigo-600 font-medium hover:text-indigo-700 transition-colors"
           >
             View All
@@ -191,7 +191,7 @@ const stats = [
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredRepos.length > 0 ? featuredRepos.map((repo, index) => (
             <a
-              href={`/projects/${repo.name}`}
+              href={`/my-site/projects/${repo.name}`}
               class={`group block p-6 bg-white border border-gray-200 rounded-2xl hover:border-indigo-300 hover:shadow-xl transition-all duration-300 animate-fade-in stagger-${index + 1}`}
               style="opacity: 0;"
             >
@@ -254,7 +254,7 @@ const stats = [
 
         <div class="mt-8 text-center md:hidden">
           <a
-            href="/projects"
+            href="/my-site/projects"
             class="inline-flex items-center gap-2 text-indigo-600 font-medium hover:text-indigo-700 transition-colors"
           >
             View All Projects
@@ -277,7 +277,7 @@ const stats = [
         <div class="grid md:grid-cols-2 gap-6">
           {recentRepos.slice(0, 4).map((repo, index) => (
             <a
-              href={`/projects/${repo.name}`}
+              href={`/my-site/projects/${repo.name}`}
               class={`flex items-start gap-4 p-5 bg-white border border-gray-200 rounded-xl hover:border-indigo-300 hover:shadow-lg transition-all duration-200 animate-slide-in stagger-${index + 1}`}
               style="opacity: 0;"
             >
@@ -315,7 +315,7 @@ const stats = [
           I'm always open to discussing new AI projects, creative ideas, or opportunities to be part of something amazing.
         </p>
         <a
-          href="/contact"
+          href="/my-site/contact"
           class="inline-flex items-center gap-2 px-8 py-4 bg-white text-indigo-600 font-bold rounded-xl hover:bg-indigo-50 shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
